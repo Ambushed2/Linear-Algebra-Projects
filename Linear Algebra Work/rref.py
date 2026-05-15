@@ -22,6 +22,7 @@ def subtract_rows(A, pivot_row_index, pivot_column_index):
     return test_A, L_column
 
 def reformat_rows(A):
+    # this is ass and needs to be reworked but it works for the cases I can think of
     row = 0
     column = 0
     A_temp = A.copy()
