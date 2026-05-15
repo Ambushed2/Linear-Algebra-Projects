@@ -5,7 +5,7 @@ A = np.zeros((1,1))
 B = np.zeros((1,1))
 
 def subtract_rows(A, pivot_row_index, pivot_column_index):
-    test_A = A
+    test_A = A.copy()
     pivot_val = test_A[pivot_row_index][pivot_column_index]
     pivot_row = test_A[pivot_row_index][:]
     L_column = np.zeros((A.shape[0], 1))
@@ -35,12 +35,11 @@ def reformat_rows(A):
         non_zero_cache = [x+row+1 for x, y in enumerate(cache) if y != 0]
         pivot = A_temp[row][column]
         print(' ')
-        print('New Row')
         print(A_temp)
         print('Column: ' + str(column) + ' Row: ' + str(row))
-        print('cache: ' + str(cache))
-        print('non-zero-cache: ' + str(non_zero_cache))
-        print('pivot: ' + str(pivot))
+        print('Elements below pivot: ' + str(cache))
+        print('Non-zero elements below pivot: ' + str(non_zero_cache))
+        print('Pivot: ' + str(pivot))
         if non_zero_cache == [] and pivot == 0:
             # pivot is not present in column, must progress to next column
             column += 1
@@ -67,8 +66,6 @@ def reformat_rows(A):
     L_final[-1:][0] = 1
     L_columns.append(L_final)
     L = np.hstack(L_columns)
-    print('L:')
-    print(L)
     return A_temp, pivot_locations, L
         
             
@@ -86,12 +83,15 @@ def check_solveable():
                 return 1
     return t==1
 
-def __init__(a, b):
+def main(a, b):
     A = a
     B = b
-    reformat_rows(A)
-
-
+    U, pivot_locations, L = reformat_rows(A)
+    print('------------')
+    print('U:')
+    print(U)
+    print('L:')
+    print(L)
 
 
 # __init__(np.array([[1, 2, 3,9], [4,5,6,2], [1,7,8,9]]), np.array([[7], [8], [9]]))
@@ -99,4 +99,4 @@ input = np.array([[2, 1, -1, 3, 2],
               [4, 3, -2, 5, 1],
               [-2, 0, 3, -1, 4],
               [6, 5, -1, 8, 3]], dtype=float)
-__init__(input, np.array([[7], [8], [9]]))
+main(input, np.array([[7], [8], [9]]))
